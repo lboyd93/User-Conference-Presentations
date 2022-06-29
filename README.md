@@ -4,6 +4,9 @@ This repository contains all the resources used for Esri User Conference present
 ## 2022
 
 ### ArcGIS API for JavaScript: Programming Patterns and API Fundamentals
+
+![title-slide](./2022/images/title-slide.png)
+
 _Co-presented with [Anne Fitz](https://github.com/annelfitz)_
 
 In this session you'll learn the basics of the ArcGIS API for JavaScript, including the fundamentals of working with properties, data, and modern techniques for working with asynchronous requests. You'll learn more details about maps, webmaps, layers, 2D and 3D views, UI, and widgets. This is a key session for developers new to the 4.x version of the API.
