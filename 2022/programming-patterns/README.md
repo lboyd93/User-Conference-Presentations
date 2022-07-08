@@ -1,6 +1,6 @@
 ## Presentation Resources
 
-PDF of Slides: TBD
+![title-slide](../2022/images/title-slide.png)
 
 ### Live Links
 
