@@ -2,7 +2,9 @@
 
 ![title-slide](../images/title-slide.png)
 
-### Live Links
+Link to Slides (PDF): https://lboyd93.github.io/User-Conference-Presentations/2022/programming-patterns/Programming-Patterns-Fundamentals-Slides.pdf
+
+### Live Links to Demos
 
 - [Maps and Views](https://lboyd93.github.io/User-Conference-Presentations/2022/programming-patterns/maps-views)
 - [SmartMapping](https://lboyd93.github.io/User-Conference-Presentations/2022/programming-patterns/smartmapping)
