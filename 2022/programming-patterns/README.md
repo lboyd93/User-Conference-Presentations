@@ -1,6 +1,6 @@
 ## Presentation Resources
 
-![title-slide](../2022/images/title-slide.png)
+![title-slide](../images/title-slide.png)
 
 ### Live Links
 
