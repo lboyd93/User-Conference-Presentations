@@ -6,7 +6,7 @@ Link to Slides (PDF): https://lboyd93.github.io/User-Conference-Presentations/20
 
 ### Live Links to Demos
 
-- [Update webmap](https://lboyd93.github.io/User-Conference-Presentations/2023/improving-ux-popups/update-popup)
+- [Update webmap](https://lboyd93.github.io/User-Conference-Presentations/2023/improving-ux-popups/update-popup/final)
 - [Related records demo](https://lboyd93.github.io/User-Conference-Presentations/2023/improving-ux-popups/relationships)
 
 ## Webmaps
