@@ -16,20 +16,16 @@ require([
 	const cropsURL =
 		"https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/USA_County_Crops_2007/FeatureServer/0";
 	let cropsDefaultRenderer;
-	// create feature layer and add to map
-	const map = new Map({
-		basemap: "topo-vector",
-	});
-	const cropsLayer = new FeatureLayer({
-		url: cropsURL,
-	});
-	cropsLayer.when(() => {
-		cropsDefaultRenderer = cropsLayer.renderer;
-	});
-	map.add(cropsLayer);
 	const view = new MapView({
 		container: "viewDiv",
-		map: map,
+		map: new Map({
+			basemap: "topo-vector",
+			layers: [
+				new FeatureLayer({
+					url: cropsURL,
+				}),
+			],
+		}),
 		center: [-86.10509, 37.78353],
 		zoom: 4,
 		popup: {
@@ -37,12 +33,16 @@ require([
 		},
 	});
 
-	// add legend to view
-	const legend = new Legend({
-		view: view,
-		container: "legendDiv",
+	let cropsLayer = view.map.layers.at(0);
+	view.when(() => {
+		cropsDefaultRenderer = cropsLayer.renderer;
+		view.ui.add("infoDiv", "top-right");
+		// add legend to view
+		const legend = new Legend({
+			view: view,
+			container: "legendDiv",
+		});
 	});
-	view.ui.add("infoDiv", "top-right");
 
 	// set up event listener for dropdown to change renderer
 	const dropdown = document.getElementById("drop-down");
