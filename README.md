@@ -3,6 +3,8 @@ This repository contains all the resources used for Esri User Conference present
 
 ## 2023
 
+Link to demos on Codepen for 2023: https://codepen.io/collection/xKJYwG 
+
 ### ArcGIS Maps SDK for JavaScript: Programming Patterns and API Fundamentals
 
 ![title-slide](./2023/images/pp-title-slide.png)
