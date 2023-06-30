@@ -8,7 +8,7 @@ require([
 	const webmap = new WebMap({
 		portalItem: {
 			// autocasts as new PortalItem()
-			id: "6f3a55950f56436f925ce4f9d71e941b",
+			id: "a28a0c2c2175410d89edadcd437e52e0",
 		},
 	});
 	const view = new MapView({
@@ -29,12 +29,12 @@ require([
 
 	// Get the layer to update when the webmap loads.
 	webmap.when(() => {
-		const artLayer = webmap.layers.at(1);
-		artLayer.popupTemplate.outFields = ["*"];
+		const uniLayer = webmap.layers.at(0);
+		uniLayer.popupTemplate.outFields = ["*"];
 
 		// Check the array of popup template content for a media element
 		// and modify it by adding a title.
-		artLayer.popupTemplate.content.forEach((content) => {
+		uniLayer.popupTemplate.content.forEach((content) => {
 			if (content.type === "media") {
 				content.mediaInfos[0].caption =
 					"Artist: {Artist} circa {Year_installed}";
@@ -43,17 +43,17 @@ require([
 
 		// Create a layer search source for the Search and Directions widgets.
 		const layerSearchSource = {
-			layer: artLayer,
-			searchFields: ["Title"],
-			displayField: "Title",
+			layer: uniLayer,
+			searchFields: ["NAME"],
+			displayField: "NAME",
 			exactMatch: false,
 			outFields: ["*"],
-			name: "Art piece",
-			placeholder: "Search for art piece",
+			name: "College",
+			placeholder: "Search for a college",
 		};
 
 		// Add the custom Search widget to the popup.
-		addCustomContent(artLayer, layerSearchSource);
+		addCustomContent(uniLayer, layerSearchSource);
 	});
 
 	// Creates a search widget with the art layer as the source
