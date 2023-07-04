@@ -5,13 +5,23 @@
 			name="viewport"
 			content="initial-scale=1,maximum-scale=1,user-scalable=no"
 		/>
-		<title>Step 3: Custom Actions</title>
+		<title>Step 1: Dock & Update Popup</title>
 
 		<link
 			rel="stylesheet"
 			href="https://js.arcgis.com/next/esri/themes/light/main.css"
 		/>
 		<script src="https://js.arcgis.com/next/"></script>
+		<script
+			type="module"
+			src="https://js.arcgis.com/calcite-components/1.4.3/calcite.esm.js"
+		></script>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="https://js.arcgis.com/calcite-components/1.4.3/calcite.css"
+		/>
+
 		<!-- Style Sheet and JS Scripts -->
 		<link rel="stylesheet" type="text/css" href="css/main.css" />
 		<script type="text/javascript" src="js/main.js"></script>
@@ -19,5 +29,21 @@
 
 	<body>
 		<div id="viewDiv"></div>
+		<calcite-panel id="info-div" heading="Save a web map">
+			<calcite-input-text
+				id="webmap-title"
+				placeholder="Webmap title"
+				value="Test webmap"
+			></calcite-input-text>
+			<calcite-button id="save-button">Save</calcite-button>
+		</calcite-panel>
+		<calcite-alert auto-close id="alert-success" kind="success" icon>
+			<div id="success-title" slot="title">Success!</div>
+			<div id="success-message" slot="message"></div>
+		</calcite-alert>
+		<calcite-alert auto-close id="alert-fail" kind="danger" icon>
+			<div id="fail-title" slot="title">Save failure.</div>
+			<div id="fail-message" slot="message"></div>
+		</calcite-alert>
 	</body>
 </html>
