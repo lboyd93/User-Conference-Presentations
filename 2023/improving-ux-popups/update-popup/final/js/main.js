@@ -59,6 +59,8 @@ require([
 		const uniLayer = webmap.layers.at(0);
 		uniLayer.popupTemplate.outFields = ["*"];
 		const content = uniLayer.popupTemplate.content;
+		// Remove the TextContent with enrollment information.
+		content.pop();
 		// Create a new MediaContent item to display a pie chart.
 		const mediaContent = new MediaContent({
 			title: "Enrollment 2019-2020",
