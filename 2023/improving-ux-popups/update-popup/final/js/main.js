@@ -21,8 +21,15 @@ require([
 	Stop,
 	reactiveUtils
 ) => {
+	// UI Components
 	const panel = document.getElementById("info-div");
 	const saveBtn = document.getElementById("save-button");
+	const alertSuccess = document.getElementById("alert-success");
+	const alertFail = document.getElementById("alert-fail");
+	let failMessage = document.getElementById("fail-message");
+	let successMessage = document.getElementById("success-message");
+	const webmapTitle = document.getElementById("webmap-title");
+
 	let directionsWidget;
 	let directionsExpand;
 
@@ -46,12 +53,6 @@ require([
 			},
 		},
 	});
-	// Add the Legend widget
-	view.ui.add(new Legend({ view }), "bottom-left");
-	view.ui.add(
-		new Expand({ content: panel, expandIcon: "save", view }),
-		"top-right"
-	);
 
 	// Get the layer to update when the webmap loads.
 	webmap.when(() => {
@@ -60,11 +61,11 @@ require([
 		const content = uniLayer.popupTemplate.content;
 		// Create a new MediaContent item to display a pie chart.
 		const mediaContent = new MediaContent({
+			title: "Enrollment 2019-2020",
 			mediaInfos: [
 				{
-					title: "Enrollment 2019-2020",
 					caption:
-						"Part time vs full time enrollment for the 2019-2020 school year.",
+						"Part time vs full time enrollment (total {TOT_ENROLL}) for the 2019-2020 school year.",
 					type: "pie-chart",
 					value: {
 						fields: ["FT_ENROLL", "PT_ENROLL"],
@@ -91,66 +92,64 @@ require([
 		addCustomContent(uniLayer, layerSearchSource);
 		// Add the custom actions to the popup.
 		addCustomActions(uniLayer, layerSearchSource);
-
-		// Watch when the directions widget is collapsed and destroy the
-		// route layer to remove it from the map.
-		reactiveUtils.watch(
-			() => directionsExpand.expanded,
-			(expanded) => {
-				if (!expanded) {
-					directionsWidget.layer.destroy();
-				} else {
-					view.closePopup();
-				}
-			}
-		);
-		// When one of the action buttons are triggered, open the website or Directions widget.
-		reactiveUtils.on(
-			() => view.popup?.viewModel,
-			"trigger-action",
-			(event) => {
-				const selectedFeature = view.popup.viewModel.selectedFeature;
-				if (event.action.id === "open-site") {
-					// Get the 'Information' field attribute
-					let info = selectedFeature.attributes.WEBSITE;
-					// Make sure the 'Information' field value is not null
-					if (info) {
-						// Open up a new browser using the URL value in the 'Information' field
-						info = formatWebsite(info);
-						if (info !== "No site") {
-							window.open(info.trim());
-						}
-					}
-				} else if (event.action.id === "directions") {
-					// Create a new RouteLayer for the Directions widget and add it to the map.
-					routeLayer = new RouteLayer();
-					directionsWidget.layer = routeLayer;
-					view.map.add(routeLayer);
-					// Add a stop with the current selected feature and a blank stop.
-					const start = new Stop({
-						name: selectedFeature.attributes.Title,
-						geometry: selectedFeature.geometry,
-					});
-					const end = new Stop();
-					directionsWidget.layer.stops = [start, end];
-					// Close the popup and open the directions widget
-					view.closePopup();
-					directionsExpand.expanded = true;
-				}
-			}
-		);
-		reactiveUtils.watch(
-			() => view.popup.selectedFeature,
-			(graphic) => {
-				if (graphic) {
-					// Set the action's visible property to true if the 'website' field value is not null, otherwise set it to false
-					const graphicTemplate = graphic.getEffectivePopupTemplate();
-					graphicTemplate.actions.items[0].visible =
-						graphic.attributes.WEBSITE !== "NOT AVAILABLE" ? true : false;
-				}
-			}
-		);
 	});
+
+	// When one of the action buttons are triggered, open the website or Directions widget.
+	reactiveUtils.on(
+		() => view.popup?.viewModel,
+		"trigger-action",
+		(event) => {
+			const selectedFeature = view.popup.viewModel.selectedFeature;
+			if (event.action.id === "open-site") {
+				// Get the 'Information' field attribute
+				let info = selectedFeature.attributes.WEBSITE;
+				// Make sure the 'Information' field value is not null
+				if (info) {
+					// Open up a new browser using the URL value in the 'Information' field
+					info = formatWebsite(info);
+					if (info !== "No site") {
+						window.open(info.trim());
+					}
+				}
+			} else if (event.action.id === "directions") {
+				// Create a new RouteLayer for the Directions widget and add it to the map.
+				routeLayer = new RouteLayer();
+				directionsWidget.layer = routeLayer;
+				view.map.add(routeLayer);
+				// Add a stop with the current selected feature and a blank stop.
+				const start = new Stop({
+					name: selectedFeature.attributes.Title,
+					geometry: selectedFeature.geometry,
+				});
+				const end = new Stop();
+				directionsWidget.layer.stops = [start, end];
+				// Close the popup and open the directions widget
+				view.closePopup();
+				directionsExpand.expanded = true;
+			}
+		}
+	);
+
+	// Watch when the directions widget is collapsed and destroy the
+	// route layer to remove it from the map and watch
+	// when the selected feature changes.
+	reactiveUtils.watch(
+		() => [directionsExpand?.expanded, view.popup?.selectedFeature],
+		([expanded, graphic]) => {
+			if (!expanded) {
+				directionsWidget.layer.destroy();
+			} else {
+				view.closePopup();
+			}
+
+			if (graphic) {
+				// Set the action's visible property to true if the 'website' field value is not null, otherwise set it to false
+				const graphicTemplate = graphic.getEffectivePopupTemplate();
+				graphicTemplate.actions.items[0].visible =
+					graphic.attributes.WEBSITE !== "NOT AVAILABLE" ? true : false;
+			}
+		}
+	);
 
 	// Creates a search widget with the art layer as the source
 	// then adds that to a custom content element.
@@ -191,10 +190,11 @@ require([
 				title: "Get Directions",
 			},
 		];
-		createDirectionsWidget(featureLayer, layerSearchSource);
+		createDirectionsWidget(layerSearchSource);
 	}
 
-	function createDirectionsWidget(featureLayer, layerSearchSource) {
+	// Function to create a new Directions widget and add it to the view.
+	function createDirectionsWidget(layerSearchSource) {
 		// Create a new Route layer and add it to the map
 		let routeLayer = new RouteLayer();
 		view.map.add(routeLayer);
@@ -219,6 +219,7 @@ require([
 		view.ui.add(directionsExpand, "top-right");
 	}
 
+	// Function to format the website attribute.
 	function formatWebsite(website) {
 		const https = "https://";
 		const https2 = "https://www.";
@@ -236,13 +237,9 @@ require([
 
 		return formatSite2;
 	}
-	function saveWebmapAs() {
-		const alertSuccess = document.getElementById("alert-success");
-		const alertFail = document.getElementById("alert-fail");
-		let failMessage = document.getElementById("fail-message");
-		let successMessage = document.getElementById("success-message");
-		const webmapTitle = document.getElementById("webmap-title");
 
+	// Function to save the webmap to ArcGIS Online.
+	function saveWebmapAs() {
 		// Create the item from the textbox input.
 		const item = {
 			title: webmapTitle.value,
@@ -269,4 +266,11 @@ require([
 				});
 		});
 	}
+
+	// Add the Legend and the save panel in the Expand widget to the View.
+	view.ui.add(new Legend({ view }), "bottom-left");
+	view.ui.add(
+		new Expand({ content: panel, expandIcon: "save", view }),
+		"top-right"
+	);
 });

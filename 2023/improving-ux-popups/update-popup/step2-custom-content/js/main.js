@@ -6,8 +6,15 @@ require([
 	"esri/popup/content/MediaContent",
 	"esri/widgets/Search",
 ], (WebMap, MapView, Legend, Expand, MediaContent, Search) => {
+	// UI components
 	const panel = document.getElementById("info-div");
 	const saveBtn = document.getElementById("save-button");
+	const alertSuccess = document.getElementById("alert-success");
+	const alertFail = document.getElementById("alert-fail");
+	let failMessage = document.getElementById("fail-message");
+	let successMessage = document.getElementById("success-message");
+	const webmapTitle = document.getElementById("webmap-title");
+
 	// Get the webmap via ID and add it to the View.
 	const webmap = new WebMap({
 		portalItem: {
@@ -28,12 +35,6 @@ require([
 			},
 		},
 	});
-	// Add the Legend widget
-	view.ui.add(new Legend({ view }), "bottom-left");
-	view.ui.add(
-		new Expand({ content: panel, expandIcon: "save", view }),
-		"top-right"
-	);
 
 	// Get the layer to update when the webmap loads.
 	webmap.when(() => {
@@ -42,11 +43,11 @@ require([
 		const content = uniLayer.popupTemplate.content;
 		// Create a new MediaContent item to display a pie chart.
 		const mediaContent = new MediaContent({
+			title: "Enrollment 2019-2020",
 			mediaInfos: [
 				{
-					title: "Enrollment 2019-2020",
 					caption:
-						"Part time vs full time enrollment for the 2019-2020 school year.",
+						"Part time vs full time enrollment (total {TOT_ENROLL}) for the 2019-2020 school year.",
 					type: "pie-chart",
 					value: {
 						fields: ["FT_ENROLL", "PT_ENROLL"],
@@ -99,12 +100,6 @@ require([
 
 	// Function to save a copy with the new popup.
 	function saveWebmapAs() {
-		const alertSuccess = document.getElementById("alert-success");
-		const alertFail = document.getElementById("alert-fail");
-		let failMessage = document.getElementById("fail-message");
-		let successMessage = document.getElementById("success-message");
-		const webmapTitle = document.getElementById("webmap-title");
-
 		// Create the item from the textbox input.
 		const item = {
 			title: webmapTitle.value,
@@ -131,4 +126,11 @@ require([
 				});
 		});
 	}
+
+	// Add the Legend and the save panel in the Expand widget to the View.
+	view.ui.add(new Legend({ view }), "bottom-left");
+	view.ui.add(
+		new Expand({ content: panel, expandIcon: "save", view }),
+		"top-right"
+	);
 });
