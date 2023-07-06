@@ -6,7 +6,7 @@ require(["esri/WebMap", "esri/views/MapView", "esri/widgets/Legend"], (
 	const webmap = new WebMap({
 		portalItem: {
 			// autocasts as new PortalItem()
-			id: "a28a0c2c2175410d89edadcd437e52e0",
+			id: "e978148d29d54ca68e2711e60a928a6b",
 		},
 	});
 	const view = new MapView({
