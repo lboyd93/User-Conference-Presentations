@@ -1,13 +1,12 @@
 Text to add in MV
 ______
-{expression/expr0}
-
 
 {expression/expr1}
 {expression/expr2}, {STATE} {ZIP}
 {expression/expr4}
 {expression/expr5} (County or equivalent)
 {expression/expr6}
+______
 
 Total Enrollment: {TOT_ENROLL}
 Full-time Enrollment: {FT_ENROLL}
