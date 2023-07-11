@@ -4,12 +4,21 @@
 
 Link to Slides (PDF): https://lboyd93.github.io/User-Conference-Presentations/2023/improving-ux-popups/Programming-Patterns-Fundamentals-Slides.pdf
 
-### Live Links to Demos
+## Links
+### Demo App
 
-- [Update webmap](https://lboyd93.github.io/User-Conference-Presentations/2023/improving-ux-popups/update-popup/final)
-- [Related records demo](https://lboyd93.github.io/User-Conference-Presentations/2023/improving-ux-popups/relationships)
+- [Colleges and Universities Updated Popup](https://lboyd93.github.io/User-Conference-Presentations/2023/improving-ux-popups/update-popup/final)
 
-## Webmaps
-- Bird Observations (Related Records): https://jsapi.maps.arcgis.com/home/item.html?id=2ef5abd6e16a4704aa3077bc49a2bd0b
-- Canadian Wheat Production (Arcade Chart): https://jsapi.maps.arcgis.com/apps/mapviewer/index.html?webmap=65c114a0326b4d92b3860e3bc633e273
-- San Diego Crimes (Complex Arcade chart): https://jsapi.maps.arcgis.com/apps/mapviewer/index.html?webmap=2ff8eab744fd425fa2e015d0a75fea0f
+### Webmaps
+- Colleges and Universities: https://jsapi.maps.arcgis.com/apps/mapviewer/index.html?webmap=a28a0c2c2175410d89edadcd437e52e0
+- National Park Service Parks and Trails (Related Records): https://jsapi.maps.arcgis.com/apps/mapviewer/index.html?webmap=60825096fa594082aea81f0ad06a135d
+
+### Documentation
+- Configure pop-ups (Map Viewer): https://doc.arcgis.com/en/arcgis-online/create-maps/configure-pop-ups-mv.htm
+- Web map specification popupInfo: https://developers.arcgis.com/web-map-specification/objects/popupInfo/
+- _Pop-ups: the essentials_ Blog: https://www.esri.com/arcgis-blog/products/arcgis-online/mapping/configure-pop-ups-basics/
+- _Rolling Out Related Records in Map Viewer_ Blog:https://www.esri.com/arcgis-blog/products/arcgis-online/mapping/rolling-out-related-records-in-map-viewer/
+- _Browsing Related Records with the ArcGIS API for JavaScript_ Blog: https://www.esri.com/arcgis-blog/products/js-api-arcgis/developers/browsing-related-records-with-the-arcgis-api-for-javascript/
+- ArcGIS Maps SDK for JavaScript Links:
+   - Popup Class: https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html
+   - PopupTemplate Class: https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html
